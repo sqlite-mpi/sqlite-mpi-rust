@@ -1,6 +1,22 @@
+# SMPI - SQLite Message Passing Interface
+
+- This is a Rust based project that allows using SQLite from processes that cannot embed a C FFI.
+    - E.g. a JS VM that can only send and receive messages using HTTP `fetch`.
+
+- It wraps SQLites FFI and exports its own FFI.
+    - Instead of the 100's of functions in SQLite, it exports a few functions that allow passing JSON messages that represent SQL queries.
+    - Because JSON is serializable, these messages can pass over process and network boundaries.
+        - This is not true of the SQLite FFI as it uses C pointers which ties usage to a single OS process.
+    - Rust is used to cross compile a single program to many architectures.
+        - This allows the same behavior over many different platforms.
+
+- Its designed to be used in React Native mobile apps.
+    - RN apps have a single JS code base that interacts with two host runtimes (iOS, Android) via message passing.
+    - This Rust project has no specific RN code and is general enough to be used in other projects.
+
 See https://sqlitempi.com/ for details.
 
-### Rust workspace/packages:
+# Rust workspace/packages:
 Rust workspaces are used to separate layers:
 
 - `sqliteffi`
@@ -27,5 +43,10 @@ Rust workspaces are used to separate layers:
     - See `smpi_iop_ffi/sh/*`
     
     
-    
 Each package has tests; run `cargo test` from the package directory.
+
+### Contact
+
+Contact me for any reason emadda.dev@gmail.com.
+
+Copyright © 2019 Enzo <emadda.dev@gmail.com>
