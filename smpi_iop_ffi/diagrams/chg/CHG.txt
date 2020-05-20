@@ -1,0 +1,10 @@
+title Client, Host, Guest
+
+note left of C:Client generates  UUID\n\nThis represents the "sync point".\n- Pending promise that is awaiting a return value to settle.
+C->H:input message with id
+H->G:pass
+
+H<-G:Return input\n- Pending (for valid responses, output via callback).\n- Settled(Rejected) (for invalid syntax or client generated id)\n
+C<-H:Some clients:\n- If the clients IOP provider provides a request/response interface for input,\nresolve the promise with an error, else just log the error on the host.
+H<-G:Output computed\n- (i_msg_id, output_msg)
+C<-H:Send output event to client.

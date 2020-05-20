@@ -1,0 +1,93 @@
+[
+    {
+        "fn": "config/set",
+        "fn": "file/config/set",
+        "args": {
+            "cache_connections": true,
+            "timeout": 0,
+            "debug": true,
+            "add_ts": false
+        }
+    },
+    {
+        "fn": "files/(close_all|get_connections|get_open_txs)",
+        "args": {
+            "cache_connections": true,
+            "timeout": 0
+        }
+    },
+    {
+        "fn": "file/get_read_tx",
+        "args": {
+            "file": "/a/b/c/file.sqlite3"
+        }
+    },
+    {
+        "fn": "file/get_write_tx",
+        "args": {
+            "file": "/a/b/c/file.sqlite3"
+        }
+    },
+    {
+        "ok": true,
+        "tx_id": "x",
+        "error": {
+            "type": "key",
+            "message": "",
+            "meta": {}
+        }
+    },
+    {
+        "fn": "file/(q|read|write)_params",
+        "args": {
+            "file": "/a/b/c/file.sqlite3",
+            "query": "",
+            "key_based": {
+            },
+            "index_based": []
+        }
+    },
+    {
+        "fn": "file/(close|get_open_txs)",
+        "args": {
+            "file": "/a/b/c/file.sqlite3"
+        }
+    },
+    {
+        "fn": "tx/(q|read|write)_params",
+        "args": {
+            "tx_id": "x",
+            "query": "",
+            "key_based": {
+            },
+            "index_based": []
+        }
+    },
+    {
+        "ok": true,
+        "result_set": {
+            "is_read_only": false,
+            "is_iud": false,
+            "rows_changed": 0,
+            "col_names": [
+                {}
+            ],
+            "rows": [
+                [],
+                []
+            ]
+        },
+        "error": {
+            "type": "key",
+            "message": "",
+            "meta": {
+            }
+        }
+    },
+    {
+        "fn": "tx/(commit|rollback)",
+        "args": {
+            "tx_id": "x"
+        }
+    }
+]

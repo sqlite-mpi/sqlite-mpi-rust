@@ -1,0 +1,32 @@
+[package]
+name = "sqlite-mpi-rust"
+version = "0.0.1"
+authors = ["Enzo <emadda.dev@gmail.com>"]
+license = "MIT"
+edition = "2018"
+publish = false
+
+[lib]
+# @todo/medium What is the correct `crate-type`?
+# @see https://stackoverflow.com/questions/55282165/dylib-cannot-load-libstd-when-compiled-in-a-workspace
+# crate-type = ["dylib"] // Issue: "Library not loaded: @rpath/libstd-f5ac182b2a26610e.dylib" when loading from node on Mac OS
+#crate-type = ["cdylib"]
+
+
+[workspace]
+members = [
+    "sqlite3ffi",
+    "sma",
+    "runtime",
+    "smpi_iop_ffi"
+]
+
+# Note: `patch` must be used in the root workspace `Cargo.toml`.
+# Command that fails when `cargo lipo` is run:
+# - `export RUST_BACKTRACE=1; "/Users/enzo/.rustup/toolchains/stable-x86_64-apple-darwin/bin/cargo" "--color" "auto" "build" "-p" "smpi_iop_ffi" "--target" "aarch64-apple-ios" "--lib"`
+#       - This was failing due to libclang not supporting `aarch64-apple-ios`, the local fork replaces the string in the target before being given to libclang.
+# - See https://github.com/rust-lang/rust-bindgen/issues/1211
+# Question: Why does `bindgen` need a particular target? Arent .h files and C FFI interfaces target agnostic?
+# @todo/important Move this to a public/remote repo to prevent local only builds.
+[patch.crates-io]
+bindgen = {git = "https://github.com/sqlite-mpi/rust-bindgen-fix-ios-target", branch = "fix-ios-target-from-v0.51.1"}
